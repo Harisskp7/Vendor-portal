@@ -1,0 +1,30 @@
+<div class="rfq-container">
+  <h2 class="title">Goods Receipt Records</h2>
+
+  <table *ngIf="grs.length > 0; else noGR" class="rfq-table">
+    <thead>
+      <tr>
+        <th>GR Number</th>
+        <th>Year</th>
+        <th>Material</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th>Plant</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gr of grs">
+        <td>{{ gr.Mblnr }}</td>
+        <td>{{ gr.Mjahr }}</td>
+        <td>{{ gr.Matnr }}</td>
+        <td>{{ gr.Menge }}</td>
+        <td>{{ gr.Meins }}</td>
+        <td>{{ gr.Werks }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noGR>
+    <p class="no-data">No Goods Receipt records found for this vendor.</p>
+  </ng-template>
+</div>

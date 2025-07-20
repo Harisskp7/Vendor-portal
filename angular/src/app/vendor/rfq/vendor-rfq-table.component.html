@@ -1,0 +1,28 @@
+<div class="rfq-container">
+  <h2>Vendor RFQ List</h2>
+
+  <table class="rfq-table" *ngIf="rfqs.length > 0">
+    <thead>
+      <tr>
+        <th>RFQ Number</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rfq of rfqs">
+        <td>{{ rfq.Ebeln }}</td>
+        <td>{{ formatDate(rfq.Bedat) }}</td>
+        <td>{{ rfq.Txz01 }}</td>
+        <td>{{ rfq.Ktmng | number:'1.0-0' }} KG</td>
+        <td>{{ rfq.Netpr }}</td>
+        <td>{{ rfq.Statu === 'A' ? 'Active' : rfq.Statu }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="rfqs.length === 0">No RFQs available for this vendor.</p>
+</div>

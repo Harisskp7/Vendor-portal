@@ -1,0 +1,32 @@
+<div class="rfq-container">
+  <h2 class="title">Invoice Records</h2>
+
+  <table *ngIf="invs.length > 0; else noGR" class="rfq-table">
+    <thead>
+      <tr>
+        <th>Invoice No</th>
+        <th>Material No</th>
+        <th>Material Desc</th>
+        <th>Amount</th>
+        <th>Currency</th>
+        <th>Invoice Date</th>
+        <th>Supplier name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let inv of invs">
+        <td>{{ inv.Belnr }}</td>
+        <td>{{ inv.Matnr }}</td>
+        <td>{{ inv.Txz01 }}</td>
+        <td>{{ inv.Rmwwr }}</td>
+        <td>{{ inv.Waers }}</td>
+        <td>{{ formatDate(inv.Budat) }}</td>
+        <td>{{ inv.Name1 }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noGR>
+    <p class="no-data">No Goods Receipt records found for this vendor.</p>
+  </ng-template>
+</div>
