@@ -1,32 +1,87 @@
-<div class="rfq-container">
-  <h2 class="title">Invoice Records</h2>
+<div class="page-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <button class="back-button" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i>
+          Back
+        </button>
+        <div class="title-section">
+          <div class="page-title">Memo</div>
+          <div class="page-subtitle">View your memo records</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="stats-card">
+          <i class="fas fa-sticky-note"></i>
+          <div class="stats-info">
+            <span class="stats-number">{{ mems.length }}</span>
+            <span class="stats-label">Total Memos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <table *ngIf="mems.length > 0; else noGR" class="rfq-table">
-    <thead>
-      <tr>
-        <th>Invoice No</th>
-        <th>Material No</th>
-        <th>Material Desc</th>
-        <th>Amount</th>
-        <th>Currency</th>
-        <th>Invoice Date</th>
-        <th>Supplier name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let mem of mems">
-        <td>{{ mem.Vbeln }}</td>
-        <td>{{ mem.Gjahr }}</td>
-        <td>{{ formatDate(mem.Budat) }}</td>
-        <td>{{ mem.Cpudt }}</td>
-        <td>{{ mem.Blart }}</td>
-        <td>{{ mem.Netwr }}</td>
-        <td>{{ mem.Waerk }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <ng-template #noGR>
-    <p class="no-data">No Goods Receipt records found for this vendor.</p>
-  </ng-template>
+  <main class="page-main">
+    <div class="content-container">
+      <div class="table-container" *ngIf="mems.length > 0">
+        <div class="table-header">
+          <h2>Memo List</h2>
+          <div class="table-actions">
+            <button class="refresh-button" (click)="loadMemos()">
+              <i class="fas fa-sync-alt"></i>
+              Refresh
+            </button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <colgroup>
+              <col style="width: 120px;">
+              <col style="width: 120px;">
+              <col style="width: 180px;">
+              <col style="width: 110px;">
+              <col style="width: 80px;">
+              <col style="width: 120px;">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th><span><i class="fas fa-hashtag"></i> Memo No</span></th>
+                <th><span><i class="fas fa-calendar"></i> Year</span></th>
+                <th><span><i class="fas fa-calendar"></i> Date</span></th>
+                <th><span><i class="fas fa-rupee-sign"></i> Amount</span></th>
+                <th><span><i class="fas fa-coins"></i> Currency</span></th>
+                <th><span><i class="fas fa-calendar"></i> Invoice Date</span></th>
+                <th><span><i class="fas fa-user"></i> Supplier Name</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mem of mems" class="table-row">
+                <td class="memo-number">{{ mem.Vbeln }}</td>
+                <td>{{ mem.Gjahr }}</td>
+                <td>{{ formatDate(mem.Budat) }}</td>
+                <td class="price">{{ mem.Netwr }}</td>
+                <td>{{ mem.Waerk }}</td>
+                <td>{{ mem.Cpudt }}</td>
+                <td>{{ mem.Blart }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="mems.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-sticky-note"></i>
+        </div>
+        <h3>No Memo Records</h3>
+        <p>There are currently no Memo records for this vendor.</p>
+        <button class="refresh-button" (click)="loadMemos()">
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </main>
 </div>

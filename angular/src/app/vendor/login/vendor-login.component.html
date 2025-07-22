@@ -1,54 +1,66 @@
-<div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
-      <div class="logo-title">
-        <img src="assets/logo.png" alt="SAP Logo" class="logo-image" />
-        <h1>SAP Vendor Portal</h1>
+<div class="page-container">
+  <div class="login-content">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-section">
+          <img src="../../kaatTech.png" alt="KaatTech Logo" class="logo-image" />
+          <div class="title-section">
+            <h1 class="page-title">Vendor Portal</h1>
+            <p class="page-subtitle">Welcome back! Please sign in to continue</p>
+          </div>
+        </div>
       </div>
-      <p>Welcome back! Please sign in to continue</p>
+
+      <form (ngSubmit)="onLogin()" class="login-form">
+        <div class="form-group">
+          <label for="vendorId">
+            <i class="fas fa-user"></i>
+            Vendor ID
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="vendorId"
+              name="VENDOR_ID"
+              [(ngModel)]="credentials.VENDOR_ID"
+              placeholder="Enter your Vendor ID"
+              required
+              [disabled]="isLoading"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <i class="fas fa-lock"></i>
+            Password
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="PASSWORD"
+              [(ngModel)]="credentials.PASSWORD"
+              placeholder="Enter your password"
+              required
+              [disabled]="isLoading"
+            />
+          </div>
+        </div>
+
+        <div class="error-container" *ngIf="errorMessage">
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <button type="submit" class="login-button" [disabled]="isLoading">
+          <span *ngIf="isLoading" class="spinner"></span>
+          <i class="fas fa-sign-in-alt" *ngIf="!isLoading"></i>
+          {{ isLoading ? 'Signing in...' : 'Sign In' }}
+        </button>
+      </form>
     </div>
-
-    <form (ngSubmit)="onLogin()" class="login-form">
-      <div class="form-group">
-        <label for="VENDOR_ID">Vendor ID</label>
-        <div class="input-wrapper">
-          <span class="input-icon">🆔</span>
-          <input
-            type="text"
-            id="vendorId"
-            name="VENDOR_ID"
-            [(ngModel)]="credentials.VENDOR_ID"
-            placeholder="Enter your Vendor ID"
-            required
-            [disabled]="isLoading"
-          />
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="PASSWORD">Password</label>
-        <div class="input-wrapper">
-          <span class="input-icon">🔒</span>
-          <input
-            type="password"
-            id="password"
-            name="PASSWORD"
-            [(ngModel)]="credentials.PASSWORD"
-            placeholder="Enter your password"
-            required
-            [disabled]="isLoading"
-          />
-        </div>
-      </div>
-
-      <div class="error-message" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </div>
-
-      <button type="submit" class="login-button" [disabled]="isLoading">
-        <span *ngIf="isLoading" class="spinner"></span>
-        {{ isLoading ? 'Signing in...' : 'Sign In' }}
-      </button>
-    </form>
   </div>
 </div>

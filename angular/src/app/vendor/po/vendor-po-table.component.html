@@ -1,34 +1,90 @@
-<div class="rfq-container">
-  <h2 class="title">Vendor Purchase Orders</h2>
+<div class="page-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <button class="back-button" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i>
+          Back
+        </button>
+        <div class="title-section">
+          <div class="page-title">Purchase Orders</div>
+          <div class="page-subtitle">Manage your purchase orders and deliveries</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="stats-card">
+          <i class="fas fa-shopping-cart"></i>
+          <div class="stats-info">
+            <span class="stats-number">{{ pos.length }}</span>
+            <span class="stats-label">Total POs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <table *ngIf="pos.length > 0; else noPO" class="rfq-table">
-    <thead>
-      <tr>
-        <th>PO Number</th>
-        <th>Status</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Quantity (KG)</th>
-        <th>Price (₹)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let po of pos">
-        <td>{{ po.Ebeln }}</td>
-        <td>
-          <span [ngClass]="po.Bstyp === 'F' ? 'badge active' : 'badge inactive'">
-            {{ po.Bstyp === 'F' ? 'Active' : po.Bstyp }}
-          </span>
-        </td>
-        <td>{{ formatDate(po.Bedat) }}</td>
-        <td>{{ po.Txz01 }}</td>
-        <td>{{ po.Ktmng | number:'1.0-0' }}</td>
-        <td>₹{{ po.Netpr }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <main class="page-main">
+    <div class="content-container">
+      <div class="table-container" *ngIf="pos.length > 0">
+        <div class="table-header">
+          <h2>Purchase Orders List</h2>
+          <div class="table-actions">
+            <button class="refresh-button" (click)="loadPOs()">
+              <i class="fas fa-sync-alt"></i>
+              Refresh
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-wrapper">
+          <table class="data-table">
+            <colgroup>
+              <col style="width: 140px;">
+              <col style="width: 110px;">
+              <col style="width: 130px;">
+              <col>
+              <col style="width: 120px;">
+              <col style="width: 120px;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th><span><i class="fas fa-hashtag"></i> PO Number</span></th>
+                <th><span><i class="fas fa-info-circle"></i> Status</span></th>
+                <th><span><i class="fas fa-calendar"></i> Date</span></th>
+                <th><span><i class="fas fa-file-text"></i> Description</span></th>
+                <th><span><i class="fas fa-weight"></i> Quantity (KG)</span></th>
+                <th><span><i class="fas fa-rupee-sign"></i> Price (₹)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let po of pos" class="table-row">
+                <td class="po-number">{{ po.Ebeln }}</td>
+                <td>
+                  <span class="status-badge" [class.active]="po.Bstyp === 'F'">
+                    {{ po.Bstyp === 'F' ? 'Active' : po.Bstyp }}
+                  </span>
+                </td>
+                <td>{{ formatDate(po.Bedat) }}</td>
+                <td class="description">{{ po.Txz01 }}</td>
+                <td class="quantity">{{ po.Ktmng | number:'1.0-0' }}</td>
+                <td class="price">₹{{ po.Netpr }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-  <ng-template #noPO>
-    <p class="no-data">No Purchase Orders available for this vendor.</p>
-  </ng-template>
+      <div class="empty-state" *ngIf="pos.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h3>No Purchase Orders Available</h3>
+        <p>There are currently no Purchase Orders for this vendor.</p>
+        <button class="refresh-button" (click)="loadPOs()">
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </main>
 </div>

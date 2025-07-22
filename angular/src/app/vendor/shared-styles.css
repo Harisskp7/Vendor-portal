@@ -1,3 +1,5 @@
+/* Shared Styles for Vendor Pages */
+
 /* Page Layout */
 .page-container {
   min-height: 100vh;
@@ -19,7 +21,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 32px;
 }
 
 .header-left {
@@ -50,29 +51,18 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.title-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2px;
-}
-
-.page-title {
-  font-size: 2rem;
+.title-section h1 {
+  font-size: 32px;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 8px 0;
   letter-spacing: -0.5px;
-  color: #fff;
-  line-height: 1.2;
 }
 
-.page-subtitle {
-  font-size: 1rem;
-  color: #f3eaea;
+.title-section p {
+  font-size: 16px;
+  margin: 0;
   opacity: 0.9;
   font-weight: 400;
-  margin: 0;
 }
 
 .header-right {
@@ -199,14 +189,9 @@
   font-weight: 600;
   text-align: left;
   border: none;
-  background: none;
-  white-space: nowrap;
-}
-
-.data-table th span {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .data-table th i {
@@ -232,6 +217,12 @@
   border: none;
 }
 
+/* Data-specific styles */
+.rfq-number,
+.po-number,
+.gr-number,
+.inv-number,
+.memo-number,
 .pay-number {
   font-weight: 600;
   color: #8b0000;
@@ -244,33 +235,31 @@
   white-space: nowrap;
 }
 
-.amount {
+.quantity {
   font-weight: 600;
   color: #059669;
 }
 
-.status {
+.price {
   font-weight: 600;
-  padding: 4px 12px;
+  color: #dc2626;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
 }
 
-.status.paid {
-  background: rgba(5, 150, 105, 0.1);
-  color: #059669;
-}
-
-.status.pending {
-  background: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
-}
-
-.status.overdue {
-  background: rgba(220, 38, 38, 0.1);
-  color: #dc2626;
+.status-badge.active {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
 }
 
 /* Empty State */
@@ -317,25 +306,72 @@
   margin-right: auto;
 }
 
+/* Loading styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(139, 0, 0, 0.1);
+  border-left: 4px solid #8b0000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  font-size: 18px;
+  color: #64748b;
+  font-weight: 500;
+}
+
 /* Responsive Design */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  .page-header {
+    padding: 24px 20px;
+  }
+  
   .header-content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .header-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .title-section h1 {
+    font-size: 24px;
+  }
+  
+  .page-main {
+    padding: 20px;
+  }
+  
+  .table-header {
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
   }
-  .header-left {
-    flex-direction: row;
-    gap: 12px;
+  
+  .data-table th,
+  .data-table td {
+    padding: 12px 8px;
+    font-size: 13px;
   }
-  .title-section {
-    align-items: flex-start;
-  }
-  .page-title {
-    font-size: 1.3rem;
-  }
-  .page-subtitle {
-    font-size: 0.95rem;
-  }
-}
- 
+} 

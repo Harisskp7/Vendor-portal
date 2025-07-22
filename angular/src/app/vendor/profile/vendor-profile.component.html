@@ -1,49 +1,40 @@
-<div class="profile-container">
-  <header class="profile-header">
-    <h1>{{ profile?.Name1 || 'Vendor Name' }}</h1>
-    <button class="back-button" (click)="goBack()">← Back to Dashboard</button>
+<div class="page-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <button class="back-button" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i>
+          Back
+        </button>
+        <div class="title-section">
+          <div class="page-title">Profile</div>
+          <div class="page-subtitle">View your vendor profile information</div>
+        </div>
+      </div>
+    </div>
   </header>
-
-  <main class="profile-main">
-    <div class="loading-container" *ngIf="isLoading">
-      <div class="spinner"></div>
-      <p>Loading profile...</p>
-    </div>
-
-    <div class="error-container" *ngIf="error && !isLoading">
-      <div class="error-message">{{ error }}</div>
-    </div>
-
-    <div class="profile-content" *ngIf="profile && !isLoading">
-      <div class="profile-grid">
-        <div class="profile-card">
-          <div class="card-header">
-            <h2>📋 Basic Information</h2>
-          </div>
-          <div class="card-content">
-            <div class="field-group">
-              <label>Vendor ID</label>
-              <span>{{ profile.Lifnr }}</span>
+  <main class="page-main">
+    <div class="content-container">
+      <div class="loading-container" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Loading profile...</p>
+      </div>
+      <div class="error-container" *ngIf="error && !isLoading">
+        <div class="error-message">{{ error }}</div>
+      </div>
+      <div class="profile-content" *ngIf="profile && !isLoading">
+        <div class="profile-grid">
+          <div class="profile-card">
+            <div class="card-header">
+              <h2><i class="fas fa-user"></i> Basic Information</h2>
             </div>
-            <div class="field-group">
-              <label>Name</label>
-              <span>{{ profile.Name1 }}</span>
-            </div>
-            <div class="field-group">
-              <label>Country</label>
-              <span>{{ profile.Land1 }}</span>
-            </div>
-            <div class="field-group">
-              <label>Street</label>
-              <span>{{ profile.Stras }}</span>
-            </div>
-            <div class="field-group">
-              <label>City</label>
-              <span>{{ profile.Ort01 }}</span>
-            </div>
-            <div class="field-group">
-              <label>Zip Code</label>
-              <span>{{ profile.Pstlz }}</span>
+            <div class="card-content">
+              <div class="field-group"><label>Vendor ID</label><span>{{ profile.Lifnr }}</span></div>
+              <div class="field-group"><label>Name</label><span>{{ profile.Name1 }}</span></div>
+              <div class="field-group"><label>Country</label><span>{{ profile.Land1 }}</span></div>
+              <div class="field-group"><label>Street</label><span>{{ profile.Stras }}</span></div>
+              <div class="field-group"><label>City</label><span>{{ profile.Ort01 }}</span></div>
+              <div class="field-group"><label>Zip Code</label><span>{{ profile.Pstlz }}</span></div>
             </div>
           </div>
         </div>

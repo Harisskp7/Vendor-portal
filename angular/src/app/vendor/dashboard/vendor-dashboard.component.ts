@@ -16,6 +16,9 @@ export class VendorDashboardComponent implements OnInit {
   isLoading = true;
   vendorId: string | null = null;
   vendorName: string = ''; // ✅ Add vendor name
+  showFinanceMenu = false; // Add this property
+  showFinancePage = false; // Add this property to show Finance sub-items
+  financeTiles: DashboardTile[] = []; // Add Finance sub-tiles
 
   constructor(
     private vendorService: VendorService,
@@ -33,6 +36,7 @@ export class VendorDashboardComponent implements OnInit {
 
     this.loadVendorProfile(); // ✅ Load name
     this.loadDashboardTiles();
+    this.initializeFinanceTiles(); // Initialize Finance sub-tiles
   }
 
   // ✅ Fetch the vendor's name
@@ -49,6 +53,28 @@ loadVendorProfile(): void {
   });
 }
 
+  initializeFinanceTiles(): void {
+    this.financeTiles = [
+      {
+        title: 'Invoice',
+        count: 15,
+        route: '/vendor/inv',
+        color: '#8b5cf6'
+      },
+      {
+        title: 'Memo',
+        count: 15,
+        route: '/vendor/memo',
+        color: '#8b5cf6'
+      },
+      {
+        title: 'Pay',
+        count: 15,
+        route: '/vendor/pay',
+        color: '#8b5cf6'
+      }
+    ];
+  }
 
   loadDashboardTiles(): void {
     this.vendorService.getDashboardTiles().subscribe({
@@ -64,7 +90,11 @@ loadVendorProfile(): void {
   }
 
   onTileClick(tile: DashboardTile): void {
-    this.router.navigate([tile.route]);
+    if (tile.title === 'Finance') {
+      this.showFinancePage = true;
+    } else {
+      this.router.navigate([tile.route]);
+    }
   }
 
   onLogout(): void {
@@ -74,5 +104,38 @@ loadVendorProfile(): void {
 
   navigateToProfile(): void {
     this.router.navigate(['/vendor/profile']);
+  }
+
+  navigateTo(route: string): void {
+    this.router.navigate([`/vendor/${route}`]);
+  }
+
+  toggleFinanceMenu(): void {
+    this.showFinanceMenu = !this.showFinanceMenu;
+  }
+
+  goBackToMain(): void {
+    this.showFinancePage = false;
+  }
+
+  getTileIcon(title: string): string {
+    switch (title) {
+      case 'Request for Quotation':
+        return 'fas fa-file-alt';
+      case 'Purchase Orders':
+        return 'fas fa-shopping-cart';
+      case 'Goods Receipt':
+        return 'fas fa-truck';
+      case 'Finance':
+        return 'fas fa-chart-line';
+      case 'Invoice':
+        return 'fas fa-receipt';
+      case 'Memo':
+        return 'fas fa-sticky-note';
+      case 'Pay':
+        return 'fas fa-credit-card';
+      default:
+        return 'fas fa-cube';
+    }
   }
 }

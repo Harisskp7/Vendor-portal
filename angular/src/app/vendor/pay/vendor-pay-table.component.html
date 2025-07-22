@@ -1,32 +1,87 @@
-<div class="rfq-container">
-  <h2 class="title">Invoice Records</h2>
+<div class="page-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <button class="back-button" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i>
+          Back
+        </button>
+        <div class="title-section">
+          <div class="page-title">Pay</div>
+          <div class="page-subtitle">View your pay records</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="stats-card">
+          <i class="fas fa-credit-card"></i>
+          <div class="stats-info">
+            <span class="stats-number">{{ pays.length }}</span>
+            <span class="stats-label">Total Pays</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <table *ngIf="pays.length > 0; else noGR" class="rfq-table">
-    <thead>
-      <tr>
-        <th>Invoice No</th>
-        <th>Material No</th>
-        <th>Material Desc</th>
-        <th>Amount</th>
-        <th>Currency</th>
-        <th>Invoice Date</th>
-        <th>Aging</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let pay of pays">
-        <td>{{ pay.Belnr }}</td>
-        <td>{{ pay.Gjahr }}</td>
-        <td>{{ pay.Buzei }}</td>
-        <td>{{ pay.Wrbtr }}</td>
-        <td>{{ pay.Zfbdt }}</td>
-        <td>{{ pay.Budat }}</td>
-        <td>{{pay.Aging }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <ng-template #noGR>
-    <p class="no-data">No Goods Receipt records found for this vendor.</p>
-  </ng-template>
+  <main class="page-main">
+    <div class="content-container">
+      <div class="table-container" *ngIf="pays.length > 0">
+        <div class="table-header">
+          <h2>Pay List</h2>
+          <div class="table-actions">
+            <button class="refresh-button" (click)="loadPays()">
+              <i class="fas fa-sync-alt"></i>
+              Refresh
+            </button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <colgroup>
+              <col style="width: 120px;">
+              <col style="width: 120px;">
+              <col style="width: 120px;">
+              <col style="width: 110px;">
+              <col style="width: 80px;">
+              <col style="width: 120px;">
+              <col style="width: 80px;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th><span><i class="fas fa-hashtag"></i> Invoice No</span></th>
+                <th><span><i class="fas fa-calendar"></i> Year</span></th>
+                <th><span><i class="fas fa-file-text"></i> Material Desc</span></th>
+                <th><span><i class="fas fa-rupee-sign"></i> Amount</span></th>
+                <th><span><i class="fas fa-coins"></i> Currency</span></th>
+                <th><span><i class="fas fa-calendar"></i> Invoice Date</span></th>
+                <th><span><i class="fas fa-hourglass-half"></i> Aging</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pay of pays" class="table-row">
+                <td class="pay-number">{{ pay.Belnr }}</td>
+                <td>{{ pay.Gjahr }}</td>
+                <td>{{ pay.Buzei }}</td>
+                <td class="price">{{ pay.Wrbtr }}</td>
+                <td>{{ pay.Zfbdt }}</td>
+                <td>{{ pay.Budat }}</td>
+                <td>{{ pay.Aging }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="pays.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-credit-card"></i>
+        </div>
+        <h3>No Pay Records</h3>
+        <p>There are currently no Pay records for this vendor.</p>
+        <button class="refresh-button" (click)="loadPays()">
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </main>
 </div>

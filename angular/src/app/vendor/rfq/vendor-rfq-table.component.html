@@ -1,28 +1,82 @@
-<div class="rfq-container">
-  <h2>Vendor RFQ List</h2>
+<div class="page-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <button class="back-button" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i>
+          Back
+        </button>
+        <div class="title-section">
+          <div class="page-title">Request for Quotation</div>
+          <div class="page-subtitle">Manage your RFQ requests and quotations</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="stats-card">
+          <i class="fas fa-file-alt"></i>
+          <div class="stats-info">
+            <span class="stats-number">{{ rfqs.length }}</span>
+            <span class="stats-label">Total RFQs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <table class="rfq-table" *ngIf="rfqs.length > 0">
-    <thead>
-      <tr>
-        <th>RFQ Number</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let rfq of rfqs">
-        <td>{{ rfq.Ebeln }}</td>
-        <td>{{ formatDate(rfq.Bedat) }}</td>
-        <td>{{ rfq.Txz01 }}</td>
-        <td>{{ rfq.Ktmng | number:'1.0-0' }} KG</td>
-        <td>{{ rfq.Netpr }}</td>
-        <td>{{ rfq.Statu === 'A' ? 'Active' : rfq.Statu }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <main class="page-main">
+    <div class="content-container">
+      <div class="table-container" *ngIf="rfqs.length > 0">
+        <div class="table-header">
+          <h2>RFQ List</h2>
+          <div class="table-actions">
+            <button class="refresh-button" (click)="loadRfqs()">
+              <i class="fas fa-sync-alt"></i>
+              Refresh
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th><span><i class="fas fa-hashtag"></i> RFQ Number</span></th>
+                <th><span><i class="fas fa-calendar"></i> Date</span></th>
+                <th><span><i class="fas fa-file-text"></i> Description</span></th>
+                <th><span><i class="fas fa-weight"></i> Quantity</span></th>
+                <th><span><i class="fas fa-dollar-sign"></i> Price</span></th>
+                <th><span><i class="fas fa-info-circle"></i> Status</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rfq of rfqs" class="table-row">
+                <td class="rfq-number">{{ rfq.Ebeln }}</td>
+                <td>{{ formatDate(rfq.Bedat) }}</td>
+                <td class="description">{{ rfq.Txz01 }}</td>
+                <td class="quantity">{{ rfq.Ktmng | number:'1.0-0' }} KG</td>
+                <td class="price">{{ rfq.Netpr }}</td>
+                <td>
+                  <span class="status-badge" [class.active]="rfq.Statu === 'A'">
+                    {{ rfq.Statu === 'A' ? 'Active' : rfq.Statu }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-  <p *ngIf="rfqs.length === 0">No RFQs available for this vendor.</p>
+      <div class="empty-state" *ngIf="rfqs.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <h3>No RFQs Available</h3>
+        <p>There are currently no Request for Quotation items for this vendor.</p>
+        <button class="refresh-button" (click)="loadRfqs()">
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </main>
 </div>

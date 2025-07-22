@@ -87,24 +87,9 @@ getVendorProfile(vendorId: string): Observable<VendorProfile> {
         color: '#f59e0b'
       },
       {
-        title: 'Invoice',
-        
-        count: 15,
-        route: '/vendor/inv',
-        color: '#8b5cf6'
-      },
-      {
-        title: 'Memo',
-        
-        count: 15,
-        route: '/vendor/memo',
-        color: '#8b5cf6'
-      },
-      {
-        title: 'Pay',
-        
-        count: 15,
-        route: '/vendor/pay',
+        title: 'Finance',
+        count: 3,
+        route: '/vendor/finance',
         color: '#8b5cf6'
       }
     ];

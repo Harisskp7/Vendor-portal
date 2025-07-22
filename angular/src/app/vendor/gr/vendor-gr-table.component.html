@@ -1,30 +1,84 @@
-<div class="rfq-container">
-  <h2 class="title">Goods Receipt Records</h2>
+<div class="page-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <button class="back-button" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i>
+          Back
+        </button>
+        <div class="title-section">
+          <div class="page-title">Goods Receipt</div>
+          <div class="page-subtitle">View your goods receipt records</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="stats-card">
+          <i class="fas fa-truck"></i>
+          <div class="stats-info">
+            <span class="stats-number">{{ grs.length }}</span>
+            <span class="stats-label">Total GRs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <table *ngIf="grs.length > 0; else noGR" class="rfq-table">
-    <thead>
-      <tr>
-        <th>GR Number</th>
-        <th>Year</th>
-        <th>Material</th>
-        <th>Quantity</th>
-        <th>Unit</th>
-        <th>Plant</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let gr of grs">
-        <td>{{ gr.Mblnr }}</td>
-        <td>{{ gr.Mjahr }}</td>
-        <td>{{ gr.Matnr }}</td>
-        <td>{{ gr.Menge }}</td>
-        <td>{{ gr.Meins }}</td>
-        <td>{{ gr.Werks }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <ng-template #noGR>
-    <p class="no-data">No Goods Receipt records found for this vendor.</p>
-  </ng-template>
+  <main class="page-main">
+    <div class="content-container">
+      <div class="table-container" *ngIf="grs.length > 0">
+        <div class="table-header">
+          <h2>Goods Receipt List</h2>
+          <div class="table-actions">
+            <button class="refresh-button" (click)="loadGRs()">
+              <i class="fas fa-sync-alt"></i>
+              Refresh
+            </button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <colgroup>
+              <col style="width: 140px;">
+              <col style="width: 90px;">
+              <col style="width: 120px;">
+              <col style="width: 110px;">
+              <col style="width: 80px;">
+              <col style="width: 110px;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th><span><i class="fas fa-hashtag"></i> GR Number</span></th>
+                <th><span><i class="fas fa-calendar"></i> Year</span></th>
+                <th><span><i class="fas fa-cube"></i> Material</span></th>
+                <th><span><i class="fas fa-weight"></i> Quantity</span></th>
+                <th><span><i class="fas fa-ruler"></i> Unit</span></th>
+                <th><span><i class="fas fa-industry"></i> Plant</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let gr of grs" class="table-row">
+                <td class="gr-number">{{ gr.Mblnr }}</td>
+                <td>{{ gr.Mjahr }}</td>
+                <td>{{ gr.Matnr }}</td>
+                <td class="quantity">{{ gr.Menge }}</td>
+                <td>{{ gr.Meins }}</td>
+                <td>{{ gr.Werks }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="grs.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-truck"></i>
+        </div>
+        <h3>No Goods Receipt Records</h3>
+        <p>There are currently no Goods Receipt records for this vendor.</p>
+        <button class="refresh-button" (click)="loadGRs()">
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </main>
 </div>

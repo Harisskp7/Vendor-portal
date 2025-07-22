@@ -1,47 +1,93 @@
-<div class="dashboard-container">
-  <header class="dashboard-header">
-    <div class="header-content">
-      <div class="header-left">
-        <div class="logo-title">
-          <img src="../kaatTech.png" alt="Logo" class="dashboard-logo" />
+<div class="dashboard-container with-sidebar">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../kaatTech.png" alt="Logo" class="sidebar-logo-img" />
+      <span class="sidebar-logo-text">KaarTech</span>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li class="nav-item" (click)="navigateTo('rfq')">
+          <i class="fas fa-file-alt"></i>
+          <span>RFQ</span>
+        </li>
+        <li class="nav-item" (click)="navigateTo('po')">
+          <i class="fas fa-shopping-cart"></i>
+          <span>PO</span>
+        </li>
+        <li class="nav-item" (click)="navigateTo('gr')">
+          <i class="fas fa-truck"></i>
+          <span>GR</span>
+        </li>
+        <li class="nav-item finance-menu" (click)="toggleFinanceMenu()">
+          <div class="nav-item-content">
+            <i class="fas fa-chart-line"></i>
+            <span>Finance</span>
+            <i class="fas fa-chevron-down finance-arrow" [class.rotated]="showFinanceMenu"></i>
+          </div>
+          <ul class="finance-submenu" [class.show]="showFinanceMenu">
+            <li (click)="navigateTo('inv'); $event.stopPropagation()">
+              <i class="fas fa-receipt"></i>
+              <span>Invoice</span>
+            </li>
+            <li (click)="navigateTo('memo'); $event.stopPropagation()">
+              <i class="fas fa-sticky-note"></i>
+              <span>Memo</span>
+            </li>
+            <li (click)="navigateTo('pay'); $event.stopPropagation()">
+              <i class="fas fa-credit-card"></i>
+              <span>Pay</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <div class="dashboard-main-content">
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="header-left">
           <div class="title-text">
             <h1>Vendor Dashboard</h1>
             <p>Welcome back, {{ vendorName }} ({{ vendorId }})</p>
           </div>
         </div>
+        <div class="header-right">
+          <button class="profile-button" (click)="navigateToProfile()">Profile</button>
+          <button class="logout-button" (click)="onLogout()">Logout</button>
+        </div>
       </div>
-
-      <div class="header-right">
-        <button class="profile-button" (click)="navigateToProfile()">Profile</button>
-        <button class="logout-button" (click)="onLogout()">Logout</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="dashboard-main">
-    <div class="dashboard-content">
-      <div class="section-header">
-        <h2>Business Objects</h2>
-      </div>
-
-      <div class="loading-container" *ngIf="isLoading">
-        <div class="spinner"></div>
-        <p>Loading dashboard...</p>
-      </div>
-
-      <div class="tiles-grid" *ngIf="!isLoading">
-        <div 
-          class="tile-card" 
-          *ngFor="let tile of tiles"
-          (click)="onTileClick(tile)"
-          [style.--tile-color]="tile.color"
-        >
-          <div class="tile-content">
-            <h3>{{ tile.title }}</h3>
-            <div class="tile-action">View Details →</div>
+    </header>
+    <main class="dashboard-main">
+      <div class="dashboard-content">
+        <div class="section-header">
+          <div class="section-header-content">
+            <button *ngIf="showFinancePage" class="back-button" (click)="goBackToMain()">
+              ← Back to Dashboard
+            </button>
+            <h2>{{ showFinancePage ? 'Finance' : 'Business Objects' }}</h2>
+          </div>
+        </div>
+        <div class="loading-container" *ngIf="isLoading">
+          <div class="spinner"></div>
+          <p>Loading dashboard...</p>
+        </div>
+        <div class="tiles-grid" *ngIf="!isLoading">
+          <div 
+            class="tile-card" 
+            *ngFor="let tile of (showFinancePage ? financeTiles : tiles)"
+            (click)="onTileClick(tile)"
+            [style.--tile-color]="tile.color"
+          >
+            <div class="tile-content">
+              <div class="tile-icon">
+                <i [class]="getTileIcon(tile.title)"></i>
+              </div>
+              <h3>{{ tile.title }}</h3>
+              <div class="tile-action">View Details</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </div>
