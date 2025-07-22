@@ -145,5 +145,11 @@ getVendorINV(vendorId: string): Observable<INV[]> {
   );
 }
 
+  getInvoicePdf(belnr: string): Observable<{ success: boolean; belnr: string; pdfBase64: string }> {
+    return this.http.get<{ success: boolean; belnr: string; pdfBase64: string }>(
+      `http://localhost:5000/api/vendor/form/${belnr}`
+    );
+  }
+
 
 }

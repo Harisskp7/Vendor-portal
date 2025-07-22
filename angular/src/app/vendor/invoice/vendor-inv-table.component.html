@@ -55,6 +55,7 @@
                 <th><span><i class="fas fa-coins"></i> Currency</span></th>
                 <th><span><i class="fas fa-calendar"></i> Invoice Date</span></th>
                 <th><span><i class="fas fa-user"></i> Supplier Name</span></th>
+                <th><span><i class="fas fa-download"></i> Download</span></th>
               </tr>
             </thead>
             <tbody>
@@ -66,6 +67,13 @@
                 <td>{{ inv.Waers }}</td>
                 <td>{{ formatDate(inv.Budat) }}</td>
                 <td>{{ inv.Name1 }}</td>
+                <td>
+                  <button class="download-btn" (click)="downloadInvoicePdf(inv.Belnr)" [disabled]="isDownloading[inv.Belnr]">
+                    <i class="fas fa-download"></i>
+                    <span *ngIf="!isDownloading[inv.Belnr]">Download</span>
+                    <span *ngIf="isDownloading[inv.Belnr]">Downloading...</span>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>

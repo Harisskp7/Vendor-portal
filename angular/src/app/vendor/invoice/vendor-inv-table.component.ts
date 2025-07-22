@@ -15,6 +15,7 @@ export class VendorinvComponent implements OnInit {
   invs: INV[] = [];
   isLoading = true;
   vendorId: string | null = null;
+  isDownloading: { [belnr: string]: boolean } = {};
 
   constructor(
     private vendorService: VendorService,
@@ -78,5 +79,34 @@ export class VendorinvComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/vendor/dashboard']);
+  }
+
+  downloadInvoicePdf(belnr: string): void {
+    this.isDownloading[belnr] = true;
+    this.vendorService.getInvoicePdf(belnr).subscribe({
+      next: (response) => {
+        if (response.success && response.pdfBase64) {
+          const byteCharacters = atob(response.pdfBase64);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = `Invoice_${belnr}.pdf`;
+          link.click();
+          window.URL.revokeObjectURL(link.href);
+        } else {
+          alert('Failed to download PDF.');
+        }
+        this.isDownloading[belnr] = false;
+      },
+      error: (err) => {
+        alert('Error downloading PDF.');
+        this.isDownloading[belnr] = false;
+      }
+    });
   }
 }
