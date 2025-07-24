@@ -7,7 +7,7 @@ const https = require('https');
 const router = express.Router();
 
 const sapUser = 'K901577';
-const sapPass = 'Haris@071316';
+const sapPass = 'Haris@0713';
 const baseUrl = 'http://AZKTLDS5CP.kcloud.com:8000';
 const servicePath = '/sap/opu/odata/SAP/ZVENDOR_PORTAL577_SRV/';
 const entitySet = 'ZLOGIN_VENDORSet';

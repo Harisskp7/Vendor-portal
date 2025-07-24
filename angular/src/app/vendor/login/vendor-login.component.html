@@ -13,17 +13,17 @@
 
       <form (ngSubmit)="onLogin()" class="login-form">
         <div class="form-group">
-          <label for="vendorId">
+          <label for="customerId">
             <i class="fas fa-user"></i>
-            Vendor ID
+            Customer ID
           </label>
           <div class="input-wrapper">
             <input
               type="text"
-              id="vendorId"
-              name="VENDOR_ID"
-              [(ngModel)]="credentials.VENDOR_ID"
-              placeholder="Enter your Vendor ID"
+              id="customerId"
+              name="CUSTOMER_ID"
+              [(ngModel)]="credentials.CUSTOMER_ID"
+              placeholder="Enter your Customer ID"
               required
               [disabled]="isLoading"
             />

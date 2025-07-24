@@ -11,7 +11,7 @@ const PROFILE_URL = '/sap/opu/odata/SAP/ZVENDOR_PORTAL577_SRV/';
 const ENTITY_SET = 'ZMEMO_VENDORSet'; // Your po entity set
 const SAP_CREDS = {
   username: 'K901577',
-  password: 'Haris@071316',
+  password: 'Haris@0713',
 };
 
 // Create HTTPS agent to ignore certificate issues (for development)

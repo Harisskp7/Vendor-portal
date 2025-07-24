@@ -28,8 +28,8 @@ export class VendorService {
 
 
   login(credentials: VendorLogin): Observable<any> {
-    return this.http.post<any>('http://localhost:5000/api/vendor/login', {
-      VENDOR_ID: credentials.VENDOR_ID,
+    return this.http.post<any>('/api/customer/login', {
+      VENDOR_ID: credentials.CUSTOMER_ID,
       PASSWORD: credentials.PASSWORD
     });
   }
@@ -60,7 +60,7 @@ export class VendorService {
   // Vendor Profile
 getVendorProfile(vendorId: string): Observable<VendorProfile> {
   return this.http.get<{ success: boolean; data: VendorProfile }>(
-    `http://localhost:5000/api/vendor/profile/${vendorId}`
+    `/api/customer/profile/${vendorId}`
   ).pipe(
     map(response => response.data)
   );
@@ -99,7 +99,7 @@ getVendorProfile(vendorId: string): Observable<VendorProfile> {
 
   getVendorRfq(vendorId: string): Observable<RFQ[]> {
   return this.http.get<{ success: boolean; data: RFQ[] }>(
-    `http://localhost:5000/api/vendor/rfq/${vendorId}`
+    `/api/customer/rfq/${vendorId}`
   ).pipe(
     map(response => response.data)
   );
@@ -107,7 +107,7 @@ getVendorProfile(vendorId: string): Observable<VendorProfile> {
 
 getVendorPO(vendorId: string): Observable<PO[]> {
   return this.http.get<{ success: boolean; data: PO[] }>(
-    `http://localhost:5000/api/vendor/po/${vendorId}`
+    `/api/customer/po/${vendorId}`
   ).pipe(
     map(response => response.data)
   );
@@ -115,7 +115,7 @@ getVendorPO(vendorId: string): Observable<PO[]> {
 
 getVendorGR(vendorId: string): Observable<GR[]> {
   return this.http.get<{ success: boolean; data: GR[] }>(
-    `http://localhost:5000/api/vendor/gr/${vendorId}`
+    `/api/customer/gr/${vendorId}`
   ).pipe(
     map(response => response.data)
   );
@@ -124,7 +124,7 @@ getVendorGR(vendorId: string): Observable<GR[]> {
   // Financial Data
 getVendorINV(vendorId: string): Observable<INV[]> {
   return this.http.get<{ success: boolean; data: INV[] }>(
-    `http://localhost:5000/api/vendor/inv/${vendorId}`
+    `/api/customer/inv/${vendorId}`
   ).pipe(
     map(response => response.data)
   );
@@ -132,14 +132,14 @@ getVendorINV(vendorId: string): Observable<INV[]> {
 
   getVendorPAY(vendorId: string): Observable<PAY[]> {
   return this.http.get<{ success: boolean; data: PAY[] }>(
-    `http://localhost:5000/api/vendor/pay/${vendorId}`
+    `/api/customer/pay/${vendorId}`
   ).pipe(
     map(response => response.data)
   );
 }
   getVendorMEMO(vendorId: string): Observable<MEMO[]> {
   return this.http.get<{ success: boolean; data: MEMO[] }>(
-    `http://localhost:5000/api/vendor/memo/${vendorId}`
+    `/api/customer/memo/${vendorId}`
   ).pipe(
     map(response => response.data)
   );
@@ -147,7 +147,7 @@ getVendorINV(vendorId: string): Observable<INV[]> {
 
   getInvoicePdf(belnr: string): Observable<{ success: boolean; belnr: string; pdfBase64: string }> {
     return this.http.get<{ success: boolean; belnr: string; pdfBase64: string }>(
-      `http://localhost:5000/api/vendor/form/${belnr}`
+      `/api/customer/form/${belnr}`
     );
   }
 

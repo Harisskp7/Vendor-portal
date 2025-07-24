@@ -1,5 +1,5 @@
 export interface VendorLogin {
-  VENDOR_ID: string;
+  CUSTOMER_ID: string;
   PASSWORD: string;
 }
 

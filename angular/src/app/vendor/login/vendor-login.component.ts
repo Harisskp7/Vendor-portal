@@ -14,7 +14,7 @@ import { VendorLogin } from '../vendor.model';
 })
 export class VendorLoginComponent {
   credentials: VendorLogin = {
-    VENDOR_ID: '',
+    CUSTOMER_ID: '',
     PASSWORD: ''
   };
 
@@ -27,21 +27,24 @@ export class VendorLoginComponent {
   ) {}
 
   onLogin(): void {
-    if (!this.credentials.VENDOR_ID || !this.credentials.PASSWORD) {
-      this.errorMessage = 'Please enter both Vendor ID and Password';
+    if (!this.credentials.CUSTOMER_ID || !this.credentials.PASSWORD) {
+      this.errorMessage = 'Please enter both Customer ID and Password';
       return;
     }
 
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.vendorService.login(this.credentials).subscribe({
+    this.vendorService.login({
+      VENDOR_ID: this.credentials.CUSTOMER_ID,
+      PASSWORD: this.credentials.PASSWORD
+    } as any).subscribe({
       next: (response) => {
         this.isLoading = false;
         console.log('Login response:', response);
 
         if (response && response.MESSAGE === 'Login successful') {
-          this.vendorService.setCurrentVendorId(this.credentials.VENDOR_ID);
+          this.vendorService.setCurrentVendorId(this.credentials.CUSTOMER_ID);
           this.router.navigate(['/vendor/dashboard']).then(navigated => {
             console.log('Navigated to dashboard:', navigated);
           });
